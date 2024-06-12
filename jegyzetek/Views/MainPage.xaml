@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModels="clr-namespace:jegyzetek.ViewModels"
+             xmlns:tool="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             x:Class="jegyzetek.Views.MainPage" >
+    <ContentPage.Behaviors>
+        <tool:StatusBarBehavior StatusBarColor="{StaticResource Primary}"/>
+        <tool:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing"/>
+    </ContentPage.Behaviors>
+
+    <CollectionView x:Name="listCV" SelectionMode="None" ItemsSource="{Binding Notes}">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <SwipeView>
+                    <SwipeView.RightItems>
+                        <SwipeItems Mode="Reveal">
+                            <SwipeItem Text="Szerkesztés" IconImageSource="editicon.png" BackgroundColor="Green" Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:MainViewModel}}, Path=EditCommand}" CommandParameter="{Binding Source={RelativeSource Self}, Path=BindingContext}"/>
+                            <SwipeItem Text="Törlés" IconImageSource="deleteicon.png" BackgroundColor="Red" Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:MainViewModel}}, Path=DeleteCommand}" CommandParameter="{Binding Source={RelativeSource Self}, Path=BindingContext}"/>
+                        </SwipeItems>
+                    </SwipeView.RightItems>
+                    <Border Padding="10">
+                        <Grid RowDefinitions="*,*" ColumnDefinitions="*,3*,3*">
+                            <Image Grid.Column="0" Grid.RowSpan="2" Source="note.png" HeightRequest="40"/>
+
+                            <Label Text="{Binding Title, StringFormat='Cím: {0}'}" Grid.Row="0" Grid.Column="1" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
+                            <Label Text="{Binding Text}" Grid.Row="0" Grid.Column="2" LineBreakMode="TailTruncation" HorizontalOptions="End"/>
+
+                            <Label Text="{Binding Category, StringFormat='Kategória: {0}'}" Grid.Row="1" Grid.Column="1" FontAttributes="Italic" LineBreakMode="TailTruncation"/>
+                            <Label Text="{Binding Date, StringFormat='{}Idő: {0:yyyy.MM.dd HH:mm}'}" Grid.Row="1" Grid.Column="2" FontAttributes="Italic" LineBreakMode="TailTruncation" HorizontalOptions="End"/>
+                        </Grid>
+                    </Border>
+                </SwipeView>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+</ContentPage>

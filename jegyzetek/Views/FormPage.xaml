@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="jegyzetek.Views.FormPage"
+             Title="bejegyzés rögzítése">
+    <Grid RowDefinitions="*,2*,*,*">
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+        </Grid.Resources>
+
+        <Grid Grid.Row="0" RowDefinitions="*,*" Margin="20">
+            <Label Text="Bejegyzés címe:"/>
+            <Entry Grid.Row="1" Text="{Binding AktNote.Title}" Placeholder="Adja meg a bejegyzés címét..." MaxLength="20" FontSize="18"/>
+        </Grid>
+
+        <Grid Grid.Row="1" RowDefinitions="*,3*,*" Margin="20">
+            <Label Text="Bejegyzés szövege:"/>
+            <Editor x:Name="textEDT" Grid.Row="1" Text="{Binding AktNote.Text}" Placeholder="Ide írja a bejegyzést..." MaxLength="150" FontSize="18"/>
+            <Label Grid.Row="2" Text="{Binding Source={x:Reference textEDT}, Path=Text.Length, StringFormat='{}150/{0}'}"/>
+        </Grid>
+
+        <Picker Title="Kategória" ItemsSource="{Binding Categorys}" SelectedItem="{Binding AktNote.Category}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" Grid.Row="2" Margin="20"/>
+
+        <Button Grid.Row="3" Text="Mentés" WidthRequest="150" HeightRequest="100" FontSize="25" FontAttributes="Bold" CornerRadius="0" Command="{Binding ButtonPressedCommand}"/>
+    </Grid>
+</ContentPage>

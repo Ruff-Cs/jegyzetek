@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="jegyzetek.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:jegyzetek.Views"
+    xmlns:local="clr-namespace:jegyzetek"
+    Shell.FlyoutBehavior="Disabled">
+
+    <TabBar>
+        <Tab Title="Bejegyzések" Icon="{x:StaticResource ListIcon}">
+            <ShellContent ContentTemplate="{DataTemplate views:MainPage}" 
+                          Route="MainPage" />
+        </Tab>
+        <Tab Title="Új bejegyzés" Icon="{x:StaticResource PlusIcon}">
+            <ShellContent ContentTemplate="{DataTemplate views:FormPage}"
+                          Route="FormPage"/>
+        </Tab>
+    </TabBar>
+
+</Shell>
